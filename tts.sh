@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Requires `lame`. Can be installed via:
+# sudo apt-get install -y lame
+
 cache_dir=$TTS_CACHE_DIR
 input_file=$TTS_STATIC_INPUT
 output_file=$TTS_STATIC_OUTPUT
@@ -11,11 +14,8 @@ language="en-us"
 sed -i "s/\x91/\'/g;s/\x92/\'/g;s/\x93/\"/g;s/\x94/\"/g;s/\x96/-/g;s/\[.\]//g;s/\[..\]//g" $input_file
 text=$(cat $input_file)
 
-if [ ! -d $cache_dir ]
-then
-    # Create the cache directory, if it doesn't exist already.
-    mkdir $cache_dir
-fi
+# Create the cache directory, if it doesn't exist already.
+mkdir -p $cache_dir
 
 if [ -z "$1" ]
 then
